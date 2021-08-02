@@ -1,0 +1,79 @@
+useReducer : Manage states and re-render it whenever the state changes.
+Concrete way to handle complex states.
+
+ const [state , dispatch] = useReducer( reducer , {count : 0 } ) ; 
+  // reducer: funtion that changes our state when we perform some action 
+  // Along with that we pass an object that defines the initial state of our state.
+
+  // state : the object   
+  // dispatch : the function we call to update our state 
+
+  function reducer(state , action){
+
+}
+
+//state : current state
+// action: the action we pass to the dispatch
+
+ex: 
+
+const [val , setVal] = useState(0);
+
+  function increment(){
+    dispatch({type: 'inc'}) 
+    // in dispatch we pass an object with a value 'type'( or anything we want to name it) 
+    //to distinguish which action we want to execute
+  }
+  function decrement(){
+    dispatch({type: 'dec'})
+    
+  } 
+
+function reducer(state , action){
+    switch( action.type)
+    {
+      case 'inc' : return { count: state.count + 1} ; // setCount(count+1); equivalent
+      case 'dec' : return { count: state.count - 1} ; // setCount(count-1); equivalent
+      default: return state;
+
+      // its always better to have a default case 
+      // we can throw some error
+      //or we can return the current state
+    }
+
+}
+
+
+ // In this way we can make sure that our state is changed only through the actions that we have defined.
+ // Helps a lot to avoid changing of state in weird unexpected ways
+
+ //==============================================================
+
+ // increment , decrement with reducer
+const ACTIONS = {
+  INCREMENT : 'inc',
+  DECREMENT : 'dec'
+}
+
+function reducer(state , action){
+    switch( action.type)
+    {
+      case ACTIONS.INCREMENT : return { count: state.count + 1} ; // setCount(count+1); equivalent
+      case ACTIONS.DECREMENT : return { count: state.count - 1} ; // setCount(count-1); equivalent
+      default: return state;
+    }
+
+}
+
+const [state , dispatch] = useReducer( reducer , {count : 0 } ) ; 
+
+ function increment(){
+    dispatch({type: ACTIONS.INCREMENT})
+}
+function decrement(){
+dispatch({type: ACTIONS.DECREMENT})
+
+} 
+
+-> We can also do this to avoid hard coded strings , which cause spelling error etc.
+-> Also change the string inside ACTIONS and it gets updated throughout .
